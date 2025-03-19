@@ -23,8 +23,8 @@ FPS = 70
 font.init()
 font1 = font.Font(None, 80)
 font2 = font.Font(None, 32)
-win_text = font1.render('You win!', True, (155, 55, 155))
-lose_text = font1.render('You lose👶🏿!', True, (155, 55, 155))
+win_text = font1.render('You win!', True, (0, 0, 5))
+lose_text = font1.render('You lose!', True, (0, 0, 5))
 
 
 
@@ -61,6 +61,15 @@ class Player (GameSprite):
         if key_pressed[K_d] and self.rect.x < width - self.image.get_width():
             self.rect.x += self.speed
 
+class UFO1(GameSprite):
+    def update(self):
+        global lost
+        self.rect.y += self.speed
+        if self.rect.y > heiht:
+            lost += 1
+            self.rect.y = randint(-100, -50)
+            self.rect.x = randint(0, width - self.image.get_width())
+
 
 
 class UFO(GameSprite):
@@ -80,6 +89,12 @@ for i in range(2):
     ufo = UFO('1.png', randint(0, 650), randint(-100, -50), 1, 75, 75)
     monsters.add(ufo)
 
+monsters1 = sprite.Group()
+for i in range(2):
+    ufo1 = UFO1('chuvak.png', randint(0, 650), randint(-100, -50), 1, 75, 75)
+    monsters1.add(ufo1)
+
+monsters.add(ufo)
 
 
 
@@ -98,6 +113,7 @@ while game:
         player.update()
         monsters.update()
         monsters.draw(window) 
+        
 
 
         score_text = font2.render('Счет:' + str(score), True, (255, 255, 255))
@@ -113,10 +129,26 @@ while game:
 
         if sprite.spritecollide(player, monsters, False) or lost > 5:
             finish = True
-            window.blit(lose_text, (300, 200))
-        if score > 10:
+            window.blit(lose_text, (200, 200))
+        if score > 30:
             finish = True
-            window.blit(win_text, (300, 200))
+            window.blit(win_text, (200, 200))
+
+        if score > 2:
+
+            monsters1.update()
+            monsters1.draw(window) 
+
+    
+        collides = sprite.spritecollide(player, monsters1, True)
+        for c in collides:
+            score -= 1
+           
+        
+            ufo1 = UFO1('chuvak.png', randint(0, 650), randint(-100, -50), 3, 75, 75)
+            monsters1.add(ufo1)
+
+
 
 
 
