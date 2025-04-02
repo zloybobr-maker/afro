@@ -73,7 +73,7 @@ class UFO2(GameSprite):
         global lost
         self.rect.y += self.speed
         if self.rect.y > heiht:
-            lost += 1
+            lost += 3
             self.rect.y = randint(-100, -50)
             self.rect.x = randint(0, width - self.image.get_width())
 
@@ -88,24 +88,42 @@ class UFO(GameSprite):
             self.rect.y = randint(-100, -50)
             self.rect.x = randint(0, width - self.image.get_width())
 
+class UFO3(GameSprite):
+    def update(self):
+        self.rect.y += self.speed
+        if self.rect.y > heiht:  
+            self.rect.y = randint(-100, -50)
+            self.rect.x = randint(0, width - self.image.get_width())
+
+mixer.init()
+mixer.music.load('8.mp3')
+mixer.music.play()
+#fire_sound = mixer.Sound('fire.ogg')
+
 
 player = Player('3.png', 300, 360, 7, 150, 170)
 #player = sprite.Group
 monsters = sprite.Group()
 for i in range(1):
-    ufo = UFO('1.png', randint(0, 650), randint(-100, -50), 1, 55, 85)
+    ufo = UFO('1.png', randint(0, 650), randint(-100, -50), 2, 55, 85)
     monsters.add(ufo)
 
 monsters1 = sprite.Group()
 for i in range(1):
-    ufo1 = UFO1('chuvak.png', randint(0, 650), randint(-100, -50), 1, 55, 85)
+    ufo1 = UFO1('chuvak.png', randint(0, 650), randint(-100, -50), 2, 55, 85)
     monsters1.add(ufo1)
 
 
 monsters2 = sprite.Group()
 for i in range(1):
-    ufo2 = UFO2('a.png', randint(0, 650), randint(-100, -50), 1, 85, 105)
+    ufo2 = UFO2('a.png', randint(0, 650), randint(-100, -50), 2, 45, 65)
     monsters2.add(ufo2)
+
+
+monsters3 = sprite.Group()
+for i in range(1):
+    ufo3 = UFO3('6.png', randint(0, 650), randint(-100, -50), 2, 55, 85)
+    monsters3.add(ufo3)
 
 
 
@@ -136,7 +154,7 @@ while game:
         collides = sprite.spritecollide(player, monsters, True)
         for c in collides:
             score += 1
-            ufo = UFO('1.png', randint(0, 650), randint(-100, -50), 3, 55, 85)
+            ufo = UFO('1.png', randint(0, 650), randint(-100, -50), 2, 55, 85)
             monsters.add(ufo)
 
         if sprite.spritecollide(player, monsters, False) or lost > 5:
@@ -154,8 +172,8 @@ while game:
     
         collides = sprite.spritecollide(player, monsters1, True)
         for c in collides:
-            score -= 1
-            ufo1 = UFO1('chuvak.png', randint(0, 650), randint(-100, -50), 3, 55, 85)
+            score -= 2
+            ufo1 = UFO1('chuvak.png', randint(0, 650), randint(-100, -50), 2, 55, 85)
             monsters1.add(ufo1)
 
 
@@ -169,8 +187,21 @@ while game:
         collides = sprite.spritecollide(player, monsters2, True)
         for c in collides:
             score += 3
-            ufo2 = UFO2('a.png', randint(0, 650), randint(-100, -50), 3, 85, 105)
+            ufo2 = UFO2('a.png', randint(0, 650), randint(-100, -50), 2, 45, 65)
             monsters2.add(ufo2)
+
+
+        if score > 1:
+
+            monsters3.update()
+            monsters3.draw(window) 
+
+    
+        collides = sprite.spritecollide(player, monsters3, True)
+        for c in collides:
+            score -= 5
+            ufo3 = UFO3('6.png', randint(0, 650), randint(-100, -50), 2, 55, 85)
+            monsters3.add(ufo3)
 
 
             
