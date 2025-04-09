@@ -88,6 +88,21 @@ class UFO(GameSprite):
             self.rect.y = randint(-100, -50)
             self.rect.x = randint(0, width - self.image.get_width())
 
+class UFO5(GameSprite):
+    def update(self):
+        self.rect.y += self.speed
+        if self.rect.y > heiht:
+            self.rect.y = randint(-100, -50)
+            self.rect.x = randint(0, width - self.image.get_width())
+
+
+class UFO4(GameSprite):
+    def update(self):
+        self.rect.y += self.speed
+        if self.rect.y > heiht:
+            self.rect.y = randint(-100, -50)
+            self.rect.x = randint(0, width - self.image.get_width())
+
 class UFO3(GameSprite):
     def update(self):
         self.rect.y += self.speed
@@ -125,7 +140,15 @@ for i in range(1):
     ufo3 = UFO3('6.png', randint(0, 650), randint(-100, -50), 2, 55, 85)
     monsters3.add(ufo3)
 
+monsters4 = sprite.Group()
+for i in range(1):
+    ufo4 = UFO4('42.png', randint(0, 650), randint(-100, -50), 2, 55, 85)
+    monsters4.add(ufo4)
 
+monsters5 = sprite.Group()
+for i in range(1):
+    ufo5 = UFO5('10.png', randint(0, 650), randint(-100, -50), 2, 55, 85)
+    monsters5.add(ufo5)
 
 
 
@@ -148,8 +171,10 @@ while game:
 
         score_text = font2.render('Счет:' + str(score), True, (255, 255, 255))
         lost_text = font2.render('Пропущено:' + str(lost), True, (255, 255, 255))
+        speed_text = font2.render('скорость игрока:' + str(player.speed), True, (255, 255, 255))
         window.blit(score_text, (10, 20))
-        window.blit(lost_text, (10, 50))   
+        window.blit(lost_text, (10, 50))
+        window.blit(speed_text, (10, 80)) 
                 
         collides = sprite.spritecollide(player, monsters, True)
         for c in collides:
@@ -157,14 +182,16 @@ while game:
             ufo = UFO('1.png', randint(0, 650), randint(-100, -50), 2, 55, 85)
             monsters.add(ufo)
 
-        if sprite.spritecollide(player, monsters, False) or lost > 5:
+        if sprite.spritecollide(player, monsters, False) or lost >= 10:
             finish = True
             window.blit(lose_text, (200, 200))
-        if score > 30:
+        if score > 40:
             finish = True
             window.blit(win_text, (200, 200))
+        #if player.speed >= 1:
+            #window.blit(player.speed, (10, 80)) 
 
-        if score > 5:
+        if score > 10:
 
             monsters1.update()
             monsters1.draw(window) 
@@ -177,7 +204,7 @@ while game:
             monsters1.add(ufo1)
 
 
-        if score > 10:
+        if score > 7:
 
             monsters2.update()
             monsters2.draw(window) 
@@ -191,7 +218,7 @@ while game:
             monsters2.add(ufo2)
 
 
-        if score > 1:
+        if score > 15:
 
             monsters3.update()
             monsters3.draw(window) 
@@ -203,8 +230,32 @@ while game:
             ufo3 = UFO3('6.png', randint(0, 650), randint(-100, -50), 2, 55, 85)
             monsters3.add(ufo3)
 
+        if score > 20:
+
+            monsters4.update()
+            monsters4.draw(window) 
+
+    
+        collides = sprite.spritecollide(player, monsters4, True)
+        for c in collides:
+            player.speed -= 1
+            ufo4 = UFO4('42.png', randint(0, 650), randint(-100, -50), 2, 55, 85)
+            monsters4.add(ufo4)
+        
+        if score >= 19:
+
+            monsters5.update()
+            monsters5.draw(window) 
+
+    
+        collides = sprite.spritecollide(player, monsters5, True)
+        for c in collides:
+            player.speed += 1
+            ufo5 = UFO5('10.png', randint(0, 650), randint(-100, -50), 2, 55, 85)
+            monsters5.add(ufo5)
 
             
+                       
 
 
 
