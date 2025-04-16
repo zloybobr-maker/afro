@@ -110,6 +110,13 @@ class UFO3(GameSprite):
             self.rect.y = randint(-100, -50)
             self.rect.x = randint(0, width - self.image.get_width())
 
+    #class UFO6(GameSprite):
+        #def update(self):
+            #self.rect.y += self.speed
+            #if self.rect.y > heiht:  
+                #self.rect.y = randint(-100, -50)
+                #self.rect.x = randint(0, width - self.image.get_width())
+
 mixer.init()
 mixer.music.load('8.mp3')
 mixer.music.play()
@@ -150,6 +157,11 @@ for i in range(1):
     ufo5 = UFO5('10.png', randint(0, 650), randint(-100, -50), 2, 55, 85)
     monsters5.add(ufo5)
 
+#monsters6 = sprite.Group()
+#for i in range(1):
+    #ufo6 = UFO6('bimba.jpg', randint(0, 650), randint(-100, -50), 2, 129, 155)
+    #monsters6.add(ufo6)
+
 
 
 finish = False
@@ -185,13 +197,13 @@ while game:
         if sprite.spritecollide(player, monsters, False) or lost >= 10:
             finish = True
             window.blit(lose_text, (200, 200))
-        if score > 40:
+        if score >= 41:
             finish = True
             window.blit(win_text, (200, 200))
         #if player.speed >= 1:
             #window.blit(player.speed, (10, 80)) 
 
-        if score > 10:
+        if score > 7:
 
             monsters1.update()
             monsters1.draw(window) 
@@ -204,7 +216,7 @@ while game:
             monsters1.add(ufo1)
 
 
-        if score > 7:
+        if score > 14:
 
             monsters2.update()
             monsters2.draw(window) 
@@ -218,7 +230,7 @@ while game:
             monsters2.add(ufo2)
 
 
-        if score > 15:
+        if score > 19:
 
             monsters3.update()
             monsters3.draw(window) 
@@ -230,7 +242,7 @@ while game:
             ufo3 = UFO3('6.png', randint(0, 650), randint(-100, -50), 2, 55, 85)
             monsters3.add(ufo3)
 
-        if score > 20:
+        if score > 23:
 
             monsters4.update()
             monsters4.draw(window) 
@@ -242,7 +254,7 @@ while game:
             ufo4 = UFO4('42.png', randint(0, 650), randint(-100, -50), 2, 55, 85)
             monsters4.add(ufo4)
         
-        if score >= 19:
+        if score >= 22:
 
             monsters5.update()
             monsters5.draw(window) 
@@ -252,14 +264,37 @@ while game:
         for c in collides:
             player.speed += 1
             ufo5 = UFO5('10.png', randint(0, 650), randint(-100, -50), 2, 55, 85)
+
             monsters5.add(ufo5)
 
-            
-                       
+        #if score >= 3:
 
+            #monsters6.update()
+            #monsters6.draw(window) 
 
+    
+        # collides = sprite.spritecollide(player, monsters6, True)
+        # for c in collides:
+        #     while True:
+        #         print('bimba')
+        #     score += 100
+        #     ufo6 = UFO6('bimba.jpg', randint(0, 650), randint(-100, -50), 2, 55, 85)
 
-        
-
+            # monsters6.add(ufo6)
+#👶🏿
+#👶🏿           
+#👶🏿                    
+#👶🏿
+#👶🏿           
+#👶🏿
+#👶🏿           
+#👶🏿
+#👶🏿           
+#👶🏿
+#👶🏿           
+#👶🏿
+#👶🏿           
+#👶🏿
+#👶🏿           
     display.update()
     clock.tick(FPS)
